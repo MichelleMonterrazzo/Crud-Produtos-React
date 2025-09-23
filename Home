@@ -1,0 +1,82 @@
+import { useState } from "react";
+
+function Home() {
+  const [produtos, setProdutos] = useState([]);
+  const [nome, setNome] = useState("");
+  const [preco, setPreco] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const novoProduto = { nome, preco };
+
+    if (editIndex !== null) {
+      const listaAtualizada = [...produtos];
+      listaAtualizada[editIndex] = novoProduto;
+      setProdutos(listaAtualizada);
+      setEditIndex(null);
+    } else {
+      setProdutos([...produtos, novoProduto]);
+    }
+
+    setNome("");
+    setPreco("");
+  };
+
+  const handleEdit = (index) => {
+    setNome(produtos[index].nome);
+    setPreco(produtos[index].preco);
+    setEditIndex(index);
+  };
+
+  const handleDelete = (index) => {
+    const listaAtualizada = produtos.filter((_, i) => i !== index);
+    setProdutos(listaAtualizada);
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-lg">
+      <h2 className="text-2xl font-bold mb-4">{editIndex !== null ? "Editar Produto" : "Adicionar Produto"}</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          placeholder="Nome do produto"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Preço"
+          value={preco}
+          onChange={(e) => setPreco(e.target.value)}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+          {editIndex !== null ? "Atualizar" : "Adicionar"}
+        </button>
+      </form>
+
+      <h2 className="text-xl font-semibold mt-8 mb-4">Lista de Produtos</h2>
+      <ul className="space-y-2">
+        {produtos.map((produto, index) => (
+          <li key={index} className="flex justify-between items-center bg-gray-50 p-2 rounded shadow-sm">
+            <span>{produto.nome} - R$ {produto.preco}</span>
+            <div className="space-x-2">
+              <button onClick={() => handleEdit(index)} className="bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500">
+                Editar
+              </button>
+              <button onClick={() => handleDelete(index)} className="bg-red-500 px-2 py-1 rounded hover:bg-red-600 text-white">
+                Excluir
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default Home;

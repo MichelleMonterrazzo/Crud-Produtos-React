@@ -1,0 +1,23 @@
+# CRUD de Produtos (React)
+
+
+Aplicação: CRUD completo de produtos com **React**.
+
+
+## Funcionalidades
+- Criar, editar, listar e excluir produtos
+- Persistência local via `localStorage`
+- Navegação SPA com pelo menos duas rotas: `/` (Produtos) e `/sobre` (Sobre)
+- Deploy automático usando GitHub Actions para GitHub Pages
+
+
+## Tecnologias
+- React (Vite)
+- React Router DOM
+- Tailwind CSS
+- GitHub Actions (Deploy)
+
+
+## Como rodar localmente
+1. Clone o repositório:
+```bash
